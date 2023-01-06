@@ -5,7 +5,7 @@ const { google } = require("googleapis");
  * SCOPES allows you to set access levels; this is set to readonly for now because you don't have access rights to
  * update the calendar yourself. For more info, check out the SCOPES documentation at this link: https://developers.google.com/identity/protocols/oauth2/scopes
  */
-const SCOPES = ["http://www.googleapis.com/auth/calendar.readonly"];
+const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 
 /**
  * Credentials are those values required to get access to your calendar. If you see “process.env” this means
@@ -19,8 +19,8 @@ const credentials = {
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  redirect_uris: ["https://github.com/abb-cf/meet"],
-  javascript_origins: ["https://github.com/abb-cf/meet", "http://localhost:3000"],
+  redirect_uris: ["https://abb-cf.github.io/meet/"],
+  javascript_origins: ["https://abb-cf.github.io", "http://localhost:3000"],
 };
 
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
@@ -45,4 +45,46 @@ module.exports.getAuthURL = async () => {
       authUrl: authUrl,
     }),
   };
+};
+
+module.exports.getAccessToken = async (event) => {
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
+
+  return new Promise((resolve, reject) => {
+    oAuth2Client.getToken(code, (err, token) => {
+      if (err) {
+        return reject(err);
+      }
+      return {
+        resolve(token),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        }
+      }
+    });
+  })
+    .then((token) => {
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(token),
+      };
+    })
+    .catch ((err) => {
+      console.error(err);
+      return {
+        statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(err),
+      };
+    });
 };

@@ -45,7 +45,7 @@
             const resultLink = document.getElementById("authURL");
             const getAuthURL = "https://hp6pv57145.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url";
 
-            getCodeElement.onclick = function() {
+            getCodeElement.onclick = function () {
                 fetch(getAuthURL)
                     .then(function (response) {
                         return response.json();

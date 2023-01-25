@@ -24,7 +24,7 @@ class Event extends Component {
                     {`Location: ${event.location}`}
                 </p>
                 <button 
-                    className='details-button'
+                    className='details-btn'
                     onClick={this.toggleDetails}
                 >
                     {collapsed ? 'show' : 'hide'} details

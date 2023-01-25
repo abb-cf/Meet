@@ -7,9 +7,9 @@ export const getAccessToken = async () => {
     const tokenCheck = accessToken && (await checkToken(accessToken));
     
         if(!accessToken || tokenCheck.error) {
-            await localStorage.removeItem('access_token');
+            await localStorage.removeItem("access_token");
             const searchParams = new URLSearchParams(window.location.search);
-            const code = await searchParams.get('code');
+            const code = await searchParams.get("code");
             if (!code) {
                 const results = await axios.get(
                     "https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url"
@@ -22,7 +22,7 @@ export const getAccessToken = async () => {
         return accessToken;
 }
 
-const checkToken = async (accessToken) => {
+export const checkToken = async (accessToken) => {
     const result = await fetch(
         `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
     )
@@ -48,8 +48,8 @@ export const getEvents = async () => {
         const result = await axios.get(url);
         if (result.data) {
             var locations = extractLocations(result.data.events);
-            localStorage.setItem('lastEvents', JSON.stringify(result.data));
-            localStorage.setItem('locations', JSON.stringify(locations));
+            localStorage.setItem("lastEvents", JSON.stringify(result.data));
+            localStorage.setItem("locations", JSON.stringify(locations));
         }
         NProgress.done();
         return result.data.events;
@@ -86,7 +86,7 @@ const getToken = async (code) => {
         })
         .catch((error) => error);
 
-    access_token && localStorage.setItem('access_token', access_token);
+    access_token && localStorage.setItem("access_token", access_token);
     
     return access_token;
 };

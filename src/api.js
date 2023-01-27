@@ -13,7 +13,19 @@ export const getAccessToken = async () => {
             if (!code) {
                 const results = await axios.get(
                     "https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url"
-                );
+                )
+                    .catch(function (error) {
+                        if (error.response) {
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            console.log(error.request);
+                        } else {
+                            console.log('Error', error.message);
+                        }
+                        console.log(error.config);
+                    });
                 const { authUrl } = results.data;
                 return (window.location.href = authUrl);
             }

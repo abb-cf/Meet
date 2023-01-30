@@ -108,10 +108,13 @@ const getToken = async (code) => {
         .then((res) => {
             return res.json();
         })
+        .then(data => {
+            console.log(data.access_token);
+            return data;
+        })
         .catch((error) => error);
 
     access_token && localStorage.setItem("access_token", access_token);
     
-    console.log(access_token);
     return access_token;
 };

@@ -101,20 +101,24 @@ const removeQuery = () => {
 };
 
 const getToken = async (code) => {
-    const encodeCode = encodeURIComponent(code);
-    const { access_token } = await fetch(
-        `https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/token/${encodeCode}`
-    )
-        .then((res) => {
-            return res.json();
-        })
-        .then(data => {
-            console.log(data.access_token);
-            return data;
-        })
-        .catch((error) => error);
+    try {
+        const encodeCode = encodeURIComponent(code);
+        const { access_token } = await fetch(
+            `https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/token/${encodeCode}`
+        )
+            .then((res) => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data.access_token);
+                return data;
+            })
+            .catch((error) => error);
 
-    access_token && localStorage.setItem("access_token", access_token);
-    
-    return access_token;
+        access_token && localStorage.setItem("access_token", access_token);
+        
+        return access_token; 
+    } catch (error) {
+        console.error(error);
+    }
 };

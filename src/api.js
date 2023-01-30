@@ -58,6 +58,10 @@ export const getEvents = async () => {
         removeQuery();
         const url = `https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}`;
         const result = await axios.get(url)
+            .then(data => {
+                console.log(data.access_token);
+                return data;
+            })
             .catch(function (error) {
                 if (error.response) {
                     console.log(error.response.data);

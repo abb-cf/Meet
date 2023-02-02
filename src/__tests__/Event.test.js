@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import Event from '../Event';
 import { mockData } from '../mock-data';
@@ -33,7 +33,7 @@ describe('<Event /> component', () => {
         const eventLocation = EventWrapper.find('p.location');
         const locationString = event.location;
         expect(eventLocation).toBeDefined();
-        expect(eventLocation.text()).toBe(`Location: ${locationString}`);
+        expect(eventLocation.text()).toBe(`${locationString}`);
     });
 
     test('<Event /> details is initially collapsed, children hidden, details-button text is "show details"', () => {

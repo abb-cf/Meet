@@ -5,21 +5,34 @@ import { extractLocations } from './api';
 class CitySearch extends Component {
     state = {
         query: '',
-        suggestions: []
+        suggestions: [],
+        showSuggestions: undefined,
     }
 
     handleInputChanged = (event) => {
         const value = event.target.value;
-        const locations = extractLocations(mockData);
-        const suggestions = locations.filter((location) => {
-          return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
+        this.setState({showSuggestions:true});
+        const suggestions = this.props.locations.filter((location) => {
+            return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
         });
         this.setState({
-          query: value,
-          suggestions,
-          showSuggestions: undefined
-        });
-      };
+            query: value,
+            suggestions,
+            showSuggestions: undefined,
+        })
+    }
+         
+    //     const value = event.target.value;
+    //     const locations = extractLocations(mockData);
+    //     const suggestions = locations.filter((location) => {
+    //       return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
+    //     });
+    //     this.setState({
+    //       query: value,
+    //       suggestions,
+    //       showSuggestions: undefined
+    //     });
+    //   };
 
     handleItemClicked = (suggestion) => {
         this.setState({
@@ -36,6 +49,7 @@ class CitySearch extends Component {
                 <input 
                     type="text"
                     className="city"
+                    placeholder="Search for a City"
                     value={this.state.query}
                     onChange={this.handleInputChanged}
                     onFocus={() => { this.setState({ showSuggestions: true }) }}

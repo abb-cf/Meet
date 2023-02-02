@@ -12,7 +12,7 @@ export const getAccessToken = async () => {
             const code = await searchParams.get("code");
             if (!code) {
                 const results = await axios.get(
-                    "https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url"
+                    "https://qeobgl0ka7.execute-api.us-east-2.amazonaws.com/dev/api/get-auth-url"
                 )
                     .catch(function (error) {
                         if (error.response) {
@@ -56,7 +56,7 @@ export const getEvents = async () => {
 
     if (token) {
         removeQuery();
-        const url = `https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}`;
+        const url = `https://qeobgl0ka7.execute-api.us-east-2.amazonaws.com/dev/api/get-events/${token}`;
         const result = await axios.get(url)
             // .then(data => {
             //     console.log(data.access_token);
@@ -110,7 +110,7 @@ const getToken = async (code) => {
     try {
         const encodeCode = encodeURIComponent(code);
         const { access_token } = await fetch(
-            `https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/token/${encodeCode}`
+            `https://qeobgl0ka7.execute-api.us-east-2.amazonaws.com/dev/api/token/${encodeCode}`
         )
             .then((res) => {
                 return res.json();
@@ -128,3 +128,4 @@ const getToken = async (code) => {
         console.error(error);
     }
 };
+

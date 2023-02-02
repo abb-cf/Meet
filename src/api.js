@@ -58,22 +58,24 @@ export const getEvents = async () => {
         removeQuery();
         const url = `https://qbbomao7r4.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}`;
         const result = await axios.get(url)
-            .then(data => {
-                console.log(data.access_token);
-                return data;
-            })
-            .catch(function (error) {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    console.log(error.request);
-                } else {
-                    console.log('Error', error.message);
-                }
-                console.log(error.config);
-            });
+            // .then(data => {
+            //     console.log(data.access_token);
+            //     return data;
+            // })
+            // .catch(function (error) {
+            //     if (error.response) {
+            //         console.log(error.response.data);
+            //         console.log(error.response.status);
+            //         console.log(error.response.headers);
+            //     } else if (error.request) {
+            //         console.log(error.request);
+            //     } else {
+            //         console.log('Error', error.message);
+            //     }
+            //     console.log(error.config);
+            // });
+            console.log('result', result);
+
         if (result.data) {
             var locations = extractLocations(result.data.events);
             localStorage.setItem("lastEvents", JSON.stringify(result.data));

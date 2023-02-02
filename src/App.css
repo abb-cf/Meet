@@ -2,6 +2,7 @@
 .App {
   text-align: center;
   padding: 2% 5%;
+  background-color: #fadbfa;
 }
 
 .App * {
@@ -34,6 +35,7 @@ input[type="number"] {
   line-height: 20px;
   align-self: center;
   height: 38px;
+  background-color: whitesmoke;
 }
 
 .city {
@@ -80,9 +82,10 @@ input[type="number"] {
   padding: 10px 10px 35px;
   margin-bottom: 10px;
   text-align: left;
-  border: 1px solid #ccc;
+  border: 1px solid darkmagenta;
   border-radius: 4px;
   position: relative;
+  background-color: #FFBCFF;
 }
 
 .details-btn {

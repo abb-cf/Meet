@@ -23,8 +23,8 @@ describe('<Event /> component', () => {
     });
 
     test('<Event /> start time is rendered correctly', () => {
-        const eventStart = EventWrapper.find('p.start');
-        const dateString = event.start.dateTime;
+        const eventStart = EventWrapper.find('.start');
+        const dateString = new Date(event.start.dateTime).toGMTString();
         expect(eventStart).toBeDefined();
         expect(eventStart.text()).toBe(dateString);
     });

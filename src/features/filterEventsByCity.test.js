@@ -1,25 +1,27 @@
+import React from "react";
 import { loadFeature, defineFeature } from 'jest-cucumber';
 import { mount, shallow } from 'enzyme';
 import App from '../App';
 import { mockData } from '../mock-data';
 import CitySearch from '../CitySearch';
+// import { extractLocations } from "../api";
 
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
 
-defineFeature(feature, test => { 
-    test('When a user hasn’t searched for a city, show upcoming events from all cities.', ({ given, when, then }) => {
-    	given('user hasn’t searched for any city', () => {
+defineFeature(feature, (test) => { 
+    test("When a user hasn’t searched for a city, show upcoming events from all cities.", ({ given, when, then }) => {
+    	given("user hasn’t searched for any city", () => {
 
     	});
 
         let AppWrapper;
-    	when('the user opens the app', () => {
+    	when("the user opens the app", () => {
             AppWrapper = mount(<App />)
         });
  
-    	then('the user should see the list of upcoming events.', () => {
+    	then("the user should see the list of upcoming events.", () => {
             AppWrapper.update();
-            expect(AppWrapper.find('.event')).toHaveLength(mockData.length);
+            expect(AppWrapper.find(".Event")).toHaveLength(mockData.length);
     	});
     });
 
@@ -27,7 +29,7 @@ defineFeature(feature, test => {
     test('User should see a list of suggestions when they search for a city', ({ given, when, then }) => {
         let CitySearchWrapper;
         given('the main page is open', () => {
-            CitySearchWrapper = shallow(<CitySearch updateEvents={() => {}} locations={locations} />);
+            CitySearchWrapper = shallow(<CitySearch updateEvents={() => {}} locations={location} />);
         });
     
         when('the user starts typing in the city textbox', () => {
@@ -61,7 +63,7 @@ defineFeature(feature, test => {
         });
 
         and('the user should receive a list of upcoming events in that city', () => {
-            expect(AppWrapper.find('.event')).toHaveLength(mockData.length);
+            expect(AppWrapper.find('.Event')).toHaveLength(mockData.length);
         });
     });
 });

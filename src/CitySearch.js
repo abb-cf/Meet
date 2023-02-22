@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { mockData } from './mock-data';
-import { extractLocations } from './api';
+// import { mockData } from './mock-data';
+// import { extractLocations } from './api';
 
 class CitySearch extends Component {
     state = {
@@ -12,6 +12,8 @@ class CitySearch extends Component {
     handleInputChanged = (event) => {
         const value = event.target.value;
         this.setState({ showSuggestions: true });
+        if (!this.props.locations) return "no data";
+        if(!Array.isArray(this.props.locations)) return "results are not array";
         const suggestions = this.props.locations.filter((location) => {
         return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
         });
@@ -58,7 +60,7 @@ class CitySearch extends Component {
                             onClick={() => this.handleItemClicked(suggestion)}
                             >{suggestion}</li>
                     ))}
-                    <li onClick={() => this.handleItemClicked("all")}>
+                    <li key="all" onClick={() => this.handleItemClicked("all")}>
                         <b>See all cities</b>
                     </li>
                 </ul>

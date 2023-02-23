@@ -116,7 +116,7 @@ const getToken = async (code) => {
                 return res.json();
             })
             .then(data => {
-                console.log(data.access_token);
+                console.log("access_token", data.access_token);
                 return data;
             })
             .catch((error) => error);
